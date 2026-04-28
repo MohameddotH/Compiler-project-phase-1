@@ -1,0 +1,46 @@
+/* TINY Language Sample Program
+   Tests all 31 token rules */
+main
+  int x;
+  float y;
+  string name;
+
+  x := 10;
+  y := 45.6;
+  name := "Hello World";
+
+  read x;
+  write endl;
+
+  if x <> 0 then
+    write x;
+  elseif x = 0 then
+    write name;
+  else
+    return 0;
+  end
+
+  repeat
+    x := x - 1;
+    write x;
+  until x < 1;
+
+  if (x > 5) && (y < 100.0) then
+    write "done";
+  end
+
+  /* nested comment block
+     spans multiple lines */
+
+  write x + y;
+  write x * 2;
+  write y / 3.0;
+
+end
+
+
+
+
+
+
+
