@@ -34,8 +34,6 @@ namespace TinyScanner
             "if", "elseif", "else", "then", "return", "endl", "main", "end"
         };
 
-        // 1. Rule Coverage: تم فرد الـ 31 قاعدة لضمان مطابقة متطلبات المشروع بدقة
-        // Important: Order matters (longest patterns first) to solve Ambiguity
         private static readonly List<(string Pattern, string Type)> TokenRules = new List<(string, string)>
         {
             (@"/\*[\s\S]*?\*/",          "Comment"),
@@ -98,7 +96,6 @@ namespace TinyScanner
 
                 if (!matched)
                 {
-                    // 5. Unknown Token Label: فصل الرسالة عن النوع لضمان الـ Consistency
                     tokenList.Add(new Token(sourceCode[position].ToString(), "Unknown", currentLine));
                     position++;
                 }
@@ -118,17 +115,16 @@ namespace TinyScanner
             Scanner scanner = new Scanner();
             List<Token> tokenList = scanner.MatchTokens(sourceCode);
 
-            // طباعة بيانات الطالب قبل الجدول
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("=====================================================");
-            Console.WriteLine("Student Name: Mohamed Hisham Abdelhamid");
+            Console.WriteLine("Student Name: Mohamed Hesham Abdelhamid");
+            Console.WriteLine("ID:  324243444");
             Console.WriteLine("Project: TINY Language Scanner (Phase 1)");
             Console.WriteLine("=====================================================");
             Console.ResetColor();
 
             PrintTable(tokenList);
 
-            // 1 & 9. Success Message & Statistics
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n[✔] Scanning Completed Successfully!");
             Console.WriteLine($"[i] Total Tokens Found: {tokenList.Count}");
@@ -145,7 +141,7 @@ namespace TinyScanner
 
             string sep = "+" + new string('-', lexWidth + 2) + "+" + new string('-', typeWidth + 2) + "+-------+";
             Console.WriteLine(sep);
-            Console.WriteLine($"|  {"Lexeme",-lexWidth}|  {"Token Type",-typeWidth}|  Line |");
+            Console.WriteLine("|  " + "Lexeme".PadRight(lexWidth) + "|  " + "Token Type".PadRight(typeWidth) + "|  Line |");
             Console.WriteLine(sep);
 
             foreach (var token in tokenList)
@@ -156,14 +152,14 @@ namespace TinyScanner
                 else if (token.Type == "Comment") Console.ForegroundColor = ConsoleColor.DarkGray;
                 else Console.ForegroundColor = ConsoleColor.Cyan;
 
-                Console.WriteLine($"|  {token.Lexeme,-lexWidth}|  {token.Type,-typeWidth}|  {token.Line,-5}|");
+                string l = token.Lexeme.PadRight(lexWidth);
+                string t = token.Type.PadRight(typeWidth);
+                string ln = token.Line.ToString().PadRight(5);
+
+                Console.WriteLine($"|  {l}|  {t}|  {ln}|");
                 Console.ResetColor();
             }
             Console.WriteLine(sep);
         }
     }
 }
-
-
-
-
